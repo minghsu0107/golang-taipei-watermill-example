@@ -1,0 +1,20 @@
+version: '3'
+services:
+  server:
+    image: golang:1.15
+    restart: unless-stopped
+    depends_on:
+      - nats-streaming
+    volumes:
+      - .:/app
+      - $GOPATH/pkg/mod:/go/pkg/mod
+    environment:
+      WATERMILL_PUBSUB_TYPE: "nats"
+      NATS_CLUSTER_ID: "test-cluster"
+      NATS_URL: "nats://nats-streaming:4222"
+    working_dir: /app
+    command: go run .
+
+  nats-streaming:
+    image: nats-streaming:0.11.2
+    restart: unless-stopped
