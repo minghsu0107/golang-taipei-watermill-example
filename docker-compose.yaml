@@ -7,7 +7,6 @@ services:
       - nats-streaming
     volumes:
       - .:/app
-      - $GOPATH/pkg/mod:/go/pkg/mod
     environment:
       WATERMILL_PUBSUB_TYPE: "nats"
       NATS_CLUSTER_ID: "test-cluster"
